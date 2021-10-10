@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.language,
+.selectedd {
+    width: 300px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.heading1,
+.heading2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.heading2 {
+    text-align: right;
+}
+
+#language-list {
+    width: 100%;
+    height: 80%;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+#selected-list {
+    border: 1px dotted black;
+    background-color: rgb(241, 241, 241);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.icon {
+    font-size: 50px;
+}
+
+#selected-list.short {
+    height: 100px;
+    background-color: rgb(252, 249, 249);
+    color: lightgray
+}
+
+.icon.short {
+    display: none;
+}
+
+.list-item {
+    width: 280px;
+    height: 35px;
+    font-size: 13px;
+    padding: 10px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    ;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-item.dragging {
+    opacity: 0.5;
+}
+
+.inputbox {
+    width: 300px;
+    display: flex;
+    position: relative;
+}
+
+#searchBar {
+
+    width: 280px;
+    height: 35px;
+    margin: 20px auto;
+    border: 1px solid gray;
+    border-radius: 5px;
+
+}
+
+input[type=text],
+input[type=placeholder] {
+    padding-left: 25px;
+}
+
+.fa-search {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    color: gray;
+}
+
+.display-list {
+    display: none;
+}
+
+.side-key {
+    width: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.trash {
+    display: none;
+}
+
+.visibile {
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+}
