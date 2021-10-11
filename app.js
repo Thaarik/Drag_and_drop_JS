@@ -42,9 +42,7 @@ langlist.addEventListener("dragover", (e) => {
   } else {
     langlist.addEventListener("drop", (event) => {
       event.preventDefault();
-      console.log(event.target.classList[1]);
       if (event.target.classList[1] === "selected") {
-        console.log(event.target);
         displayList.appendChild(draggingCard);
       }
     });
@@ -76,7 +74,6 @@ displayList.addEventListener("dragover", (e) => {
       console.log("Cannot add directly on display box");
     }
   } else {
-    console.log(drag);
     displayList.appendChild(drag);
   }
 });
@@ -120,7 +117,6 @@ function registerEventsOnList(item) {
 
 //to make display list appear when we add list
 function openDisplay(display) {
-  console.log(selectedlist);
   if (display.hasChildNodes()) {
     display.classList.add("visibile");
     selectedlist.classList.add("short");
@@ -130,8 +126,6 @@ function openDisplay(display) {
 
 //to make empty display list disappear
 function closeDisplay(display) {
-  console.log(display);
-  console.log(display.children.length === 1);
   if (display.children.length === 0) {
     display.classList.remove("visibile");
     selectedlist.classList.remove("short");
