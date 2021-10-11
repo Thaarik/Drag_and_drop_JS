@@ -2,4 +2,4 @@
 
 Drag and Drop Functionality using JS
 
-Live demo: 
+Live demo: https://thaarik.github.io/Drag_and_drop_JS/
