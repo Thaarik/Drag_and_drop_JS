@@ -54,6 +54,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+
 }
 
 .icon {
@@ -63,7 +64,8 @@
 #selected-list.short {
     height: 100px;
     background-color: rgb(252, 249, 249);
-    color: lightgray
+    color: lightgray;
+
 }
 
 .icon.short {
@@ -77,11 +79,12 @@
     padding: 10px;
     border: 2px solid lightgray;
     border-radius: 5px;
-    ;
+    cursor: move;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 
 .list-item.dragging {
     opacity: 0.5;
@@ -123,10 +126,22 @@ input[type=placeholder] {
     width: 30px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .trash {
     display: none;
+}
+
+.visibileTrash {
+    display: block;
+    color: lightgrey;
+}
+
+.visibileTrash:hover {
+    /* display: block; */
+    color: black;
+    cursor: pointer;
 }
 
 .visibile {

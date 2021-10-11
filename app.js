@@ -6,22 +6,30 @@ const displayList = document.querySelector(".display-list");
 const listitems = document.querySelectorAll(".list-item");
 const selected = document.querySelector("#selected-list");
 const icon = document.querySelector(".icon");
+const trash = document.querySelector(".trash");
+
+//search bar function in language list
 searchbar.addEventListener("keyup", (e) => {
-  let searchlist = langlist.getElementsByTagName("div");
+  let searchlist = langlist.querySelectorAll(".list-item");
   for (let search of searchlist) {
-    console.log(search.innerText);
-    if (search.innerText.toLowerCase().indexOf(e.target.value) > -1) {
+    if (
+      search.innerText.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1
+    ) {
       search.style.display = "";
+      search.classList.remove("hidden");
     } else {
       search.style.display = "none";
+      search.classList.add("hidden");
     }
   }
 });
 
+//to make all lists draggable and functio as per their event
 listitems.forEach((item) => {
   registerEventsOnList(item);
 });
 
+//lists response when dragged over language list section (arrangament and shifting)
 langlist.addEventListener("dragover", (e) => {
   e.preventDefault();
   let draggingCard = document.querySelector(".dragging");
@@ -32,17 +40,19 @@ langlist.addEventListener("dragover", (e) => {
       cardAfterDraggingCard
     );
   } else {
-    langlist.addEventListener("drop", (e) => {
-      e.preventDefault();
-      console.log(e.target.classList[1]);
-      if (e.target.classList[1] === "selected") {
+    langlist.addEventListener("drop", (event) => {
+      event.preventDefault();
+      console.log(event.target.classList[1]);
+      if (event.target.classList[1] === "selected") {
+        console.log(event.target);
         displayList.appendChild(draggingCard);
       }
     });
-
     langlist.appendChild(draggingCard);
   }
 });
+
+//lists response when dragged over selection list section (dropping area for all lists)
 selectedlist.addEventListener("dragover", (e) => {
   e.preventDefault();
   let draggingCard = document.querySelector(".dragging");
@@ -52,12 +62,11 @@ selectedlist.addEventListener("dragover", (e) => {
   ) {
     displayList.appendChild(draggingCard);
   }
-  //
 });
 
+//lists response when dragged inside display list (Arrangement and delete function)
 displayList.addEventListener("dragover", (e) => {
   e.preventDefault();
-  console.log(e.target);
   let drag = displayList.querySelector(".dragging");
   let cc = getCardAfterDraggingCard(displayList, e.clientY);
   if (cc) {
@@ -67,6 +76,7 @@ displayList.addEventListener("dragover", (e) => {
       console.log("Cannot add directly on display box");
     }
   } else {
+    console.log(drag);
     displayList.appendChild(drag);
   }
 });
@@ -74,6 +84,7 @@ displayList.addEventListener("drop", (e) => {
   openDisplay(displayList);
 });
 
+//function for arrangement of lists inside language list and display list box
 function getCardAfterDraggingCard(list, yDraggingCard) {
   let listItem = [...list.querySelectorAll(".list-item:not(.dragging)")];
   return listItem.reduce(
@@ -89,31 +100,53 @@ function getCardAfterDraggingCard(list, yDraggingCard) {
     { offset: Number.NEGATIVE_INFINITY }
   ).element;
 }
+
+//to add functionality when list starts to drag
 function registerEventsOnList(item) {
   item.addEventListener("dragstart", (e) => {
     item.classList.add("dragging");
   });
-
   item.addEventListener("dragend", (e) => {
     openDisplay(displayList);
     closeDisplay(displayList);
+    if (e.path[1].classList[0] === "display-list") {
+      e.path[0].children[1].children[1].classList.add("visibileTrash");
+    } else {
+      e.path[0].children[1].children[1].classList.remove("visibileTrash");
+    }
     item.classList.remove("dragging");
   });
 }
-function openDisplay(displayList) {
+
+//to make display list appear when we add list
+function openDisplay(display) {
   console.log(selectedlist);
-  if (displayList.hasChildNodes()) {
-    displayList.classList.add("visibile");
+  if (display.hasChildNodes()) {
+    display.classList.add("visibile");
     selectedlist.classList.add("short");
     icon.classList.add("short");
   }
 }
-function closeDisplay(displayList) {
-  console.log(displayList);
-  console.log(displayList.children.length === 1);
-  if (displayList.children.length === 0) {
-    displayList.classList.remove("visibile");
+
+//to make empty display list disappear
+function closeDisplay(display) {
+  console.log(display);
+  console.log(display.children.length === 1);
+  if (display.children.length === 0) {
+    display.classList.remove("visibile");
     selectedlist.classList.remove("short");
     icon.classList.remove("short");
   }
+}
+
+//delete button functionality
+function back(event) {
+  if (event.path[4].classList[0] === "display-list") {
+    event.path[1].classList.remove("visibileTrash");
+    langlist.appendChild(event.path[3]);
+  } else if (event.path[3].classList[0] === "display-list") {
+    event.path[1].classList.remove("visibileTrash");
+    langlist.appendChild(event.path[2]);
+  }
+  closeDisplay(displayList);
 }
